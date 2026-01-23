@@ -1,0 +1,155 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #c41e3a;
+  --color-primary-hover: #a31830;
+  --color-dark: #1a1a1a;
+  --color-surface: #2d2d2d;
+  --color-muted: #6b7280;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
+
+:root {
+  --id-card-ratio: 1.586;
+}
+
+body {
+  @apply bg-neutral-100 text-neutral-900 min-h-screen;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Skip to content link for accessibility */
+.skip-link {
+  @apply absolute -top-10 left-4 z-50 bg-primary text-white px-4 py-2 rounded-b-lg transition-all duration-200;
+}
+
+.skip-link:focus {
+  @apply top-0;
+}
+
+/* Shake animation for error alerts */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Slide in animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
+}
+
+/* Shimmer animation for skeleton loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    theme('colors.neutral.200') 0%,
+    theme('colors.neutral.100') 50%,
+    theme('colors.neutral.200') 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* 3D Flip container styles */
+.flip-container {
+  perspective: 1000px;
+}
+
+.flip-card {
+  transition: transform 0.7s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-face-back {
+  transform: rotateY(180deg);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-shake,
+  .animate-fade-in,
+  .animate-slide-in,
+  .animate-shimmer,
+  .flip-card {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .flip-card.flipped {
+    transform: none;
+  }
+
+  /* Show both sides when motion is reduced */
+  .flip-face-back {
+    transform: none;
+    position: relative !important;
+  }
+}
+
+/* ID Card silhouette styles */
+.id-card-silhouette {
+  aspect-ratio: var(--id-card-ratio);
+}
+
+/* Focus ring utility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+/* RTL support for Arabic text */
+[dir="rtl"], .rtl {
+  direction: rtl;
+  text-align: right;
+}

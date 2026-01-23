@@ -45,6 +45,7 @@ public class IdDocumentController : ControllerBase
             return response.Response switch
             {
                 200 => Ok(response),
+                206 => StatusCode(206, response),
                 400 => BadRequest(response),
                 422 => UnprocessableEntity(response),
                 _ => StatusCode(500, response)

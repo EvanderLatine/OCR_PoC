@@ -190,3 +190,8 @@ appsettings.*.user.json
 
 # ID Cards Datasets
 python/data/
+dotNET/Brimit.EmiratesIDExtractor/docs/test_files
+
+# Claude Code local settings
+.claude/
+CLAUDE.md
