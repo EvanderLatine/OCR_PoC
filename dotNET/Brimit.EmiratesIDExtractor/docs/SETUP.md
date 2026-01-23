@@ -90,9 +90,9 @@ Logs are written to:
 ## 7. Azure Resources
 
 Current configuration:
-- Endpoint: https://brimit-demo-document-intelligence.cognitiveservices.azure.com/
-- Classifier Model: eid_side_classifier
-- Extractor Model: eid_fields_extractor
+- Endpoint: https://your-resource.cognitiveservices.azure.com/
+- Classifier Model: your-classifier-model-id
+- Extractor Model: your-extractor-model-id
 
 ## 8. Troubleshooting
 

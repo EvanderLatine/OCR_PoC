@@ -63,9 +63,9 @@ A fully functional ASP.NET Core 8.0 Web API service that extracts data from ID d
 ### Azure Configuration
 ```json
 {
-  \"Endpoint\": \"https://brimit-demo-document-intelligence.cognitiveservices.azure.com/\",
-  \"ClassifierModelId\": \"eid_side_classifier\",
-  \"ExtractorModelId\": \"eid_fields_extractor\",
+  \"Endpoint\": \"https://your-resource.cognitiveservices.azure.com/\",
+  \"ClassifierModelId\": \"your-classifier-model-id\",
+  \"ExtractorModelId\": \"your-extractor-model-id\",
   \"MinClassificationConfidence\": 0.9,
   \"MinExtractionConfidence\": 0.8
 }
@@ -82,7 +82,7 @@ A fully functional ASP.NET Core 8.0 Web API service that extracts data from ID d
 2. **Unit test project** - Sample tests with Moq and FluentAssertions
 
 ### Security Considerations
-- API key stored in configuration (use User Secrets/Key Vault in production)
+- API key stored using .NET User Secrets for development (use Key Vault in production)
 - HTTPS enforced
 - Input validation on all endpoints
 - No PII logged

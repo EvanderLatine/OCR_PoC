@@ -27,13 +27,13 @@ A proof-of-concept ASP.NET Core Web API service that extracts data from ID docum
 
 ## Configuration
 
-Update `appsettings.json` with your Azure Document Intelligence credentials:
+Update configuration with your Azure Document Intelligence settings. Store the API key using .NET User Secrets (recommended for development).
 
 ```json
 {
   \"DocumentIntelligence\": {
     \"Endpoint\": \"https://your-resource.cognitiveservices.azure.com/\",
-    \"ApiKey\": \"your-api-key\",
+    \"ApiKey\": \"\",
     \"ClassifierModelId\": \"your-classifier-model-id\",
     \"ExtractorModelId\": \"your-extractor-model-id\",
     \"MinClassificationConfidence\": 0.9,
@@ -44,7 +44,7 @@ Update `appsettings.json` with your Azure Document Intelligence credentials:
 
 ### Security Note
 
-For production, use Azure Key Vault or environment variables to store sensitive information like API keys.
+For development, use .NET User Secrets to store API keys. For production, use Azure Key Vault or environment variables.
 
 ## Running the Service
 
