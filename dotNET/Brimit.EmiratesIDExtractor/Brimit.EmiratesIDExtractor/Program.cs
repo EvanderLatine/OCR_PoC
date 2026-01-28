@@ -4,6 +4,7 @@ using Serilog;
 using System.Reflection;
 using Brimit.EmiratesIDExtractor.Factories;
 using Brimit.EmiratesIDExtractor.Processors;
+using Microsoft.OpenApi;
 
 // Configure Serilog from appsettings.json
 Log.Logger = new LoggerConfiguration()
@@ -31,12 +32,12 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
-        options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+        options.SwaggerDoc("v1", new OpenApiInfo
         {
             Title = "Emirates ID Extractor API",
             Version = "v1",
             Description = "POC service for extracting data from Emirates ID documents using Azure AI Document Intelligence",
-            Contact = new Microsoft.OpenApi.Models.OpenApiContact
+            Contact = new OpenApiContact
             {
                 Name = "Brimit",
                 Email = "support@brimit.com"

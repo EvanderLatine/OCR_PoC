@@ -114,7 +114,7 @@ public class EmiratesIdProcessor : IDocumentProcessor
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error processing {DocumentType}");
+            _logger.LogError(ex, "Error processing {DocType}", DocumentType);
             return ApiResponse<object>.Error(500, "Internal server error");
         }
     }

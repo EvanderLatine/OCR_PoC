@@ -18,7 +18,7 @@ A proof-of-concept ASP.NET Core Web API service that extracts data from ID docum
 
 ## Prerequisites
 
-- .NET 8.0 SDK
+- .NET 10.0 SDK
 - Azure AI Document Intelligence resource
 - Trained custom models for:
   - Document classification

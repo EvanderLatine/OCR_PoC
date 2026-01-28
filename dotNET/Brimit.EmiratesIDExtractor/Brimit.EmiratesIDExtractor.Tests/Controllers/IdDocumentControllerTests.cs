@@ -3,6 +3,7 @@ using Brimit.EmiratesIDExtractor.Factories;
 using Brimit.EmiratesIDExtractor.Interfaces;
 using Brimit.EmiratesIDExtractor.Models;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -15,6 +16,7 @@ public class IdDocumentControllerTests
     private readonly Mock<IDocumentProcessorFactory> _factoryMock;
     private readonly Mock<ILogger<IdDocumentController>> _loggerMock;
     private readonly Mock<IDocumentProcessor> _processorMock;
+    private readonly Mock<IFormFile> _mockFormFile;
     private readonly IdDocumentController _controller;
 
     public IdDocumentControllerTests()
@@ -22,6 +24,7 @@ public class IdDocumentControllerTests
         _factoryMock = new Mock<IDocumentProcessorFactory>();
         _loggerMock = new Mock<ILogger<IdDocumentController>>();
         _processorMock = new Mock<IDocumentProcessor>();
+        _mockFormFile = new Mock<IFormFile>();
 
         _factoryMock.Setup(f => f.GetProcessor("emirates-id")).Returns(_processorMock.Object);
 
@@ -32,7 +35,7 @@ public class IdDocumentControllerTests
     public async Task ParseIdDocument_ValidTypeAndRequest_ReturnsOk()
     {
         // Arrange
-        var request = new ParseDocumentRequest();
+        var request = new ParseDocumentRequest { Front = _mockFormFile.Object };
         var expectedResponse = ApiResponse<object>.Success(new { Name = "Test" });
         _processorMock.Setup(p => p.ProcessAsync(request)).ReturnsAsync(expectedResponse);
 
@@ -49,7 +52,7 @@ public class IdDocumentControllerTests
     public async Task ParseIdDocument_InvalidType_ReturnsBadRequest()
     {
         // Arrange
-        var request = new ParseDocumentRequest();
+        var request = new ParseDocumentRequest { Front = _mockFormFile.Object };
         _factoryMock.Setup(f => f.GetProcessor("invalid-type")).Throws<ArgumentException>();
 
         // Act
@@ -63,7 +66,7 @@ public class IdDocumentControllerTests
     public async Task ParseIdDocument_ProcessorReturnsError_ReturnsAppropriateStatus()
     {
         // Arrange
-        var request = new ParseDocumentRequest();
+        var request = new ParseDocumentRequest { Front = _mockFormFile.Object };
         var errorResponse = ApiResponse<object>.Error(422, "Invalid document");
         _processorMock.Setup(p => p.ProcessAsync(request)).ReturnsAsync(errorResponse);
 
@@ -78,7 +81,7 @@ public class IdDocumentControllerTests
     public async Task ParseIdDocument_ExceptionThrown_ReturnsInternalServerError()
     {
         // Arrange
-        var request = new ParseDocumentRequest();
+        var request = new ParseDocumentRequest { Front = _mockFormFile.Object };
         _processorMock.Setup(p => p.ProcessAsync(request)).ThrowsAsync(new Exception("Test exception"));
 
         // Act

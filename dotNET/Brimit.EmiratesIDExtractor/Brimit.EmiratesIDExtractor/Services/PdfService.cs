@@ -1,5 +1,5 @@
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -7,7 +7,7 @@ namespace Brimit.EmiratesIDExtractor.Services;
 
 /// <summary>
 /// Service implementation for PDF operations
-/// MCP context7: Using PdfSharpCore for PDF creation and SixLabors.ImageSharp for image processing
+/// Using PDFsharp 6.x for PDF creation and SixLabors.ImageSharp for image processing
 /// </summary>
 public class PdfService : IPdfService
 {
@@ -40,13 +40,16 @@ public class PdfService : IPdfService
             
             // Add back page
             await AddImageToPageAsync(document, backImage, "Back");
-            
+
+            // Get page count before saving (PDFsharp 6.x makes document read-only after save)
+            var pageCount = document.PageCount;
+
             // Save to memory stream
             using var stream = new MemoryStream();
             document.Save(stream, false);
-            
-            _logger.LogInformation("Successfully created PDF with {PageCount} pages", document.PageCount);
-            
+
+            _logger.LogInformation("Successfully created PDF with {PageCount} pages", pageCount);
+
             return stream.ToArray();
         }
         catch (Exception ex)
@@ -84,7 +87,7 @@ public class PdfService : IPdfService
         {
             // Create PDF page
             var page = document.AddPage();
-            page.Size = PdfSharpCore.PageSize.A4;
+            page.Size = PdfSharp.PageSize.A4;
             
             using var gfx = XGraphics.FromPdfPage(page);
             
@@ -93,7 +96,7 @@ public class PdfService : IPdfService
             await image.SaveAsPngAsync(tempStream);
             tempStream.Position = 0;
             
-            using var xImage = XImage.FromStream(() => tempStream);
+            using var xImage = XImage.FromStream(tempStream);
             
             // Calculate dimensions to fit on page while maintaining aspect ratio
             var pageWidth = page.Width.Point;

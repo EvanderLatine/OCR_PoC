@@ -1,7 +1,7 @@
 # ID Document Extractor POC - Project Summary
 
 ### Overview
-A fully functional ASP.NET Core 8.0 Web API service that extracts data from ID documents using Azure AI Document Intelligence. The service is designed generically to handle multiple document types (starting with Emirates ID) with extensible processors, implementing all requested requirements including validation, classification, extraction, and comprehensive error handling.
+A fully functional ASP.NET Core 10.0 Web API service that extracts data from ID documents using Azure AI Document Intelligence. The service is designed generically to handle multiple document types (starting with Emirates ID) with extensible processors, implementing all requested requirements including validation, classification, extraction, and comprehensive error handling.
 
 ### Key Features Implemented
 
@@ -73,9 +73,10 @@ A fully functional ASP.NET Core 8.0 Web API service that extracts data from ID d
 
 ### NuGet Packages Used
 - **Azure.AI.DocumentIntelligence** v1.0.0 - Azure AI SDK
-- **PdfSharpCore** v1.3.65 - PDF creation
-- **Serilog.AspNetCore** v8.0.0 - Structured logging
-- **Swashbuckle.AspNetCore** v6.4.0 - Swagger/OpenAPI
+- **PDFsharp** v6.2.3 - PDF creation
+- **Serilog.AspNetCore** v9.0.0 - Structured logging
+- **Swashbuckle.AspNetCore** v10.1.0 - Swagger/OpenAPI
+- **SixLabors.ImageSharp** v3.1.7 - Image processing
 
 ### Testing Tools Provided
 1. **test-requests.http** - HTTP requests for VS Code REST Client
